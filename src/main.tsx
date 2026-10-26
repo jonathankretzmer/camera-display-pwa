@@ -76,6 +76,17 @@ function App() {
     }
   }
 
+  const [full, setFull] = useState(false)
+  useEffect(() => {
+    const sync = () => setFull(!!document.fullscreenElement)
+    document.addEventListener('fullscreenchange', sync)
+    return () => document.removeEventListener('fullscreenchange', sync)
+  }, [])
+  const toggleFull = () =>
+    (full ? document.exitFullscreen() : document.documentElement.requestFullscreen()).catch((e) =>
+      setError(`Fullscreen unsupported: ${e.message ?? e}`),
+    )
+
   return (
     <div onClick={() => setMenu(!menu)}>
       <video ref={video} autoplay playsInline muted />
@@ -90,6 +101,9 @@ function App() {
           </select>
           <button class={sound ? 'on' : ''} onClick={() => setSound(!sound)}>
             Sound {sound ? 'on' : 'off'}
+          </button>
+          <button class={full ? 'on' : ''} onClick={toggleFull}>
+            Fullscreen {full ? 'on' : 'off'}
           </button>
           <button class={locked ? 'on' : ''} onClick={toggleLock}>
             Orientation {locked ? 'locked' : 'auto'}
