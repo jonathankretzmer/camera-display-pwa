@@ -1,0 +1,17 @@
+services:
+  camera-display:
+    build: .
+    container_name: camera-display
+    restart: unless-stopped
+    # TLS/routing handled by Traefik + Cloudflare. Adjust labels, network and host to match your stack.
+    networks: [proxy]
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.camera.rule=Host(`camera.kretzmer.co.za`)
+      - traefik.http.routers.camera.entrypoints=websecure
+      - traefik.http.routers.camera.tls=true
+      - traefik.http.services.camera.loadbalancer.server.port=80
+
+networks:
+  proxy:
+    external: true

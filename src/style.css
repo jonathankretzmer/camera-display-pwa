@@ -1,0 +1,10 @@
+html, body, #app { margin: 0; height: 100%; background: #000; color: #fff; font-family: system-ui, sans-serif; }
+video { width: 100%; height: 100%; object-fit: contain; display: block; }
+.menu {
+  position: fixed; left: 0; right: 0; bottom: 0; padding: 16px;
+  padding-bottom: max(16px, env(safe-area-inset-bottom));
+  background: rgba(0, 0, 0, .75); display: flex; flex-wrap: wrap; gap: 8px;
+}
+.menu select, .menu button { flex: 1 1 auto; padding: 12px; font-size: 1rem; border-radius: 8px; border: 0; }
+.menu button.on { background: #4caf50; color: #fff; }
+.msg { position: fixed; top: 16px; left: 16px; right: 16px; text-align: center; }
